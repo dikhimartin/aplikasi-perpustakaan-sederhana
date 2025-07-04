@@ -3,30 +3,23 @@
 Aplikasi manajemen perpustakaan sederhana berbasis PHP Native dengan arsitektur MVC (Model-View-Controller) dan database MySQL. Aplikasi ini memungkinkan pengelolaan data buku, mahasiswa, serta transaksi peminjaman dan pengembalian buku, dilengkapi dengan fitur otentikasi pengguna dan Role-Based Access Control (RBAC).
 
 
-
 ## Daftar Isi
 
-1. [Persyaratan Minimum :](https://www.google.com/search?q=%23persyaratan-minimum-)
+- [1. Persyaratan Minimum](#persyaratan-minimum-)
+- [2. Proses Cloning Proyek](#proses-cloning-proyek-)
+- [3. Struktur Proyek](#struktur-proyek-)
+- [4. Setup Database](#setup-database-)
+- [5. Cara Menjalankan Aplikasi](#cara-menjalankan-aplikasi)
 
-2. [Proses Cloning Proyek :](https://www.google.com/search?q=%23proses-cloning-proyek-)
+   \- Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal) :
 
-3. [Struktur Proyek :](https://www.google.com/search?q=%23struktur-proyek-)
+   \- Menggunakan Docker Compose :
 
-4. [Setup Database :](https://www.google.com/search?q=%23setup-database-)
+6. [Kredensial Login Default :](#kredensial-login-default-)
 
-5. Cara Menjalankan Aplikasi :
+7. [Arsitektur Aplikasi :](#arsitektur-aplikasi-)
 
-     \- Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal) :
-
-     \- Menggunakan Docker Compose :
-
-6. [Kredensial Login Default :](https://www.google.com/search?q=%23kredensial-login-default-)
-
-7. [Arsitektur Aplikasi :](https://www.google.com/search?q=%23arsitektur-aplikasi-)
-
-8. [Modul Aplikasi :](https://www.google.com/search?q=%23modul-aplikasi-)
-
-------
+8. [Modul Aplikasi :](#modul-aplikasi-)
 
 
 
@@ -39,9 +32,6 @@ Pastikan sistem kita memenuhi persyaratan berikut:
 - **Web Server:** Apache (jika tidak menggunakan PHP Built-in Server atau Docker)
 - **Git:** Untuk melakukan cloning repository.
 - **Docker & Docker Compose:** (Jika ingin menjalankan database dan/atau aplikasi menggunakan Docker)
-
-------
-
 
 
 ## 2. Proses Cloning Proyek
@@ -67,10 +57,6 @@ Untuk mendapatkan salinan proyek ini di sistem lokal kamu, ikuti langkah-langkah
    ```
 
 Sekarang kamu memiliki salinan lokal dari proyek ini dan siap untuk melanjutkan ke proses setup.
-
-------
-
-
 
 ## 3. Struktur Proyek
 
@@ -101,15 +87,9 @@ Berikut adalah struktur direktori utama proyek ini:
     └── peminjaman/       # Tampilan untuk manajemen peminjaman
 ```
 
-------
-
-
-
 ## 4. Setup Database
 
 Aplikasi ini menggunakan database MySQL. Kita dapat menyiapkannya secara manual atau menggunakan Docker Compose.
-
-
 
 ### 4.1. Konfigurasi Database (app/Config/database.php)
 
@@ -129,9 +109,6 @@ define('DB_USER', 'your_db_user');    // Ganti dengan username database kita
 define('DB_PASS', 'your_db_password'); // Ganti dengan password database kita
 define('DB_NAME', 'perpustakaan_db'); // Nama database
 ```
-
-
-
 ### 4.2. Impor Skema dan Data Awal
 
 Kita dapat mengimpor skema database dan data awal menggunakan phpMyAdmin (jika menggunakan Docker Compose) atau klien MySQL/MariaDB lainnya.
@@ -139,10 +116,6 @@ Kita dapat mengimpor skema database dan data awal menggunakan phpMyAdmin (jika m
 1. **Akses phpMyAdmin:** Jika menggunakan Docker Compose, akses `http://localhost:8080`.
 2. **Buat Database:** Buat database baru dengan nama `perpustakaan_db` (atau nama lain yang kita tentukan di `database.php` dan `docker-compose.yaml`). Pastikan menggunakan `utf8mb4_unicode_ci` untuk collation.
 3. **Impor SQL:** Impor file `dump_sql/data.sql` ke database yang baru kita buat. File ini berisi semua definisi tabel dan data awal (termasuk user admin).
-
-------
-
-
 
 ## 5. Cara Menjalankan Aplikasi
 
@@ -221,18 +194,12 @@ Bash
 docker-compose down -v
 ```
 
-------
-
 ## 6. Kredensial Login Default
 
 Setelah mengimpor `dump_sql/data.sql`, kita akan memiliki user `admin` yang dapat digunakan untuk login:
 
 - **Username:** `admin`
 - **Password:** `password123`
-
-------
-
-
 
 ## 7. Arsitektur Aplikasi
 
@@ -253,10 +220,6 @@ Aplikasi ini dibangun dengan pendekatan **MVC (Model-View-Controller) sederhana*
   - `Auth.php`: Menangani logika otentikasi dan otorisasi (Role-Based Access Control - RBAC).
   - `Utils.php`: Berisi fungsi-fungsi utilitas umum (misal: `generateUuid`).
 - **Public (`public/`):** Direktori yang dapat diakses langsung oleh web server. Berisi `index.php` (front controller) dan aset statis (CSS, JS).
-
-------
-
-
 
 ## 8. Modul Aplikasi
 
