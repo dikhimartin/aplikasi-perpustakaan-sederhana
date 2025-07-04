@@ -65,7 +65,6 @@ class PeminjamanController {
     }
 
     public function history() {
-        // Pastikan sesi dimulai
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../Core/Database.php';
 require_once __DIR__ . '/../Core/Utils.php';
-require_once __DIR__ . '/User.php'; // Tambahkan ini untuk mengimpor model User
+require_once __DIR__ . '/User.php'; 
 
 class Mahasiswa {
     private $conn;
@@ -15,18 +15,16 @@ class Mahasiswa {
     public $email;
     public $no_telepon;
     public $status;
-    public $username; // Properti baru untuk username user
-    public $password; // Properti baru untuk password user
+    public $username; 
+    public $password; 
 
     public function __construct() {
         $database = Database::getInstance();
         $this->conn = $database->getConnection();
-        $this->userModel = new User(); // Inisialisasi model User
+        $this->userModel = new User(); 
     }
 
-    // Metode create sekarang menerima username dan password
     public function create() {
-        // Mulai transaksi
         $this->conn->beginTransaction();
 
         try {
@@ -57,23 +55,20 @@ class Mahasiswa {
                 throw new Exception("Gagal membuat data mahasiswa.");
             }
 
-            // Jika berhasil membuat mahasiswa, buat akun user terkait
-            $this->userModel->id_user = Utils::generateUuid(); // Generate UUID untuk user
+            $this->userModel->id_user = Utils::generateUuid(); 
             $this->userModel->username = $this->username;
             $this->userModel->password = $this->password;
             $this->userModel->role = 'mahasiswa';
-            $this->userModel->nim_mahasiswa = $this->nim; // Hubungkan dengan NIM mahasiswa yang baru dibuat
+            $this->userModel->nim_mahasiswa = $this->nim;
 
             if (!$this->userModel->create()) {
                 throw new Exception("Gagal membuat akun user untuk mahasiswa.");
             }
 
-            // Commit transaksi jika semua berhasil
             $this->conn->commit();
             return true;
 
         } catch (Exception $e) {
-            // Rollback transaksi jika ada kesalahan
             $this->conn->rollBack();
             error_log("Error creating mahasiswa and user: " . $e->getMessage());
             return false;
@@ -146,13 +141,9 @@ class Mahasiswa {
     }
 
     public function delete() {
-        // Mulai transaksi
         $this->conn->beginTransaction();
 
         try {
-            // Hapus user terkait terlebih dahulu (karena ada FOREIGN KEY ON DELETE SET NULL di tabel User)
-            // Atau, jika ingin menghapus user juga, bisa langsung hapus mahasiswa dan biarkan ON DELETE CASCADE/SET NULL bekerja
-            // Di sini, kita akan menghapus user secara eksplisit untuk memastikan
             $userQuery = "DELETE FROM User WHERE nim_mahasiswa = :nim";
             $userStmt = $this->conn->prepare($userQuery);
             $userStmt->bindParam(':nim', $this->nim);
@@ -160,7 +151,6 @@ class Mahasiswa {
                 throw new Exception("Gagal menghapus user terkait.");
             }
 
-            // Kemudian hapus mahasiswa
             $mahasiswaQuery = "DELETE FROM " . $this->table_name . " WHERE nim = :nim";
             $mahasiswaStmt = $this->conn->prepare($mahasiswaQuery);
             $mahasiswaStmt->bindParam(':nim', $this->nim);
@@ -169,12 +159,10 @@ class Mahasiswa {
                 throw new Exception("Gagal menghapus mahasiswa.");
             }
 
-            // Commit transaksi jika semua berhasil
             $this->conn->commit();
             return true;
 
         } catch (Exception $e) {
-            // Rollback transaksi jika ada kesalahan
             $this->conn->rollBack();
             error_log("Error deleting mahasiswa and user: " . $e->getMessage());
             return false;

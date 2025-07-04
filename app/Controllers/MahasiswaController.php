@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../Models/Mahasiswa.php';
-require_once __DIR__ . '/../Models/User.php'; // Pastikan User model di-require
+require_once __DIR__ . '/../Models/User.php'; 
 require_once __DIR__ . '/../Core/Auth.php';
 
 class MahasiswaController {
@@ -10,7 +10,7 @@ class MahasiswaController {
 
     public function __construct() {
         $this->mahasiswaModel = new Mahasiswa();
-        $this->userModel = new User(); // Inisialisasi User model
+        $this->userModel = new User(); 
     }
 
     public function index() {
@@ -35,7 +35,6 @@ class MahasiswaController {
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Validasi input
             $nama_mahasiswa = trim($_POST['nama_mahasiswa'] ?? '');
             $jurusan = trim($_POST['jurusan'] ?? '');
             $email = trim($_POST['email'] ?? '');
@@ -62,7 +61,6 @@ class MahasiswaController {
                 exit();
             }
 
-            // Cek apakah username sudah ada
             if ($this->userModel->findByUsername($username)) {
                 $_SESSION['error'] = 'Username sudah digunakan. Mohon gunakan username lain.';
                 header('Location: /mahasiswa/create');
@@ -74,8 +72,8 @@ class MahasiswaController {
             $this->mahasiswaModel->email = $email;
             $this->mahasiswaModel->no_telepon = $no_telepon;
             $this->mahasiswaModel->status = $status;
-            $this->mahasiswaModel->username = $username; // Set username untuk model Mahasiswa
-            $this->mahasiswaModel->password = $password; // Set password untuk model Mahasiswa
+            $this->mahasiswaModel->username = $username; 
+            $this->mahasiswaModel->password = $password; 
 
             if ($this->mahasiswaModel->create()) {
                 $_SESSION['message'] = 'Mahasiswa dan akun user berhasil ditambahkan!';

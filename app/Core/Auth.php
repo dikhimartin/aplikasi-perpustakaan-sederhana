@@ -2,7 +2,6 @@
 
 class Auth {
     public static function check() {
-        // Pastikan sesi dimulai
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -30,14 +29,11 @@ class Auth {
     }
 
     public static function logout() {
-        // Pastikan sesi dimulai
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        // Hapus semua variabel sesi
         $_SESSION = array();
 
-        // Hapus cookie sesi
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
             setcookie(session_name(), '', time() - 42000,
@@ -46,7 +42,6 @@ class Auth {
             );
         }
 
-        // Hancurkan sesi
         session_destroy();
     }
 }

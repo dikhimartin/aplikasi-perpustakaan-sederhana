@@ -28,8 +28,6 @@ class User {
     }
 
     public function create() {
-        // ID user sudah di-generate di Mahasiswa model atau di controller jika user dibuat terpisah
-        // Password sudah di-hash di controller atau di Mahasiswa model sebelum dipanggil ke sini
         $hashed_password = password_hash($this->password, PASSWORD_BCRYPT); 
 
         $query = "INSERT INTO " . $this->table_name . "
@@ -41,7 +39,6 @@ class User {
         // sanitize
         $this->username = htmlspecialchars(strip_tags($this->username));
         $this->role = htmlspecialchars(strip_tags($this->role));
-        // nim_mahasiswa bisa NULL, jadi tidak perlu strip_tags jika NULL
         $nim_mahasiswa_sanitized = $this->nim_mahasiswa ? htmlspecialchars(strip_tags($this->nim_mahasiswa)) : null;
 
         // bind values
