@@ -2,17 +2,33 @@
 
 Aplikasi manajemen perpustakaan sederhana berbasis PHP Native dengan arsitektur MVC (Model-View-Controller) dan database MySQL. Aplikasi ini memungkinkan pengelolaan data buku, mahasiswa, serta transaksi peminjaman dan pengembalian buku, dilengkapi dengan fitur otentikasi pengguna dan Role-Based Access Control (RBAC).
 
+
+
 ## Daftar Isi
 
-1. [Persyaratan Minimum :](#persyaratan-minimum-)
-2. [Struktur Proyek :](#struktur-proyek-)
-3. [Setup Database :](#setup-database-)
-4. [Cara Menjalankan Aplikasi :](#cara-menjalankan-aplikasi-)
-   - [Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal) :](#menggunakan-php-built-in-server-disarankan-untuk-pengembangan-lokal-)
-   - [Menggunakan Docker Compose :](#menggunakan-docker-compose-)
-5. [Kredensial Login Default :](#kredensial-login-default-)
-6. [Arsitektur Aplikasi :](#arsitektur-aplikasi-)
-7. [Modul Aplikasi :](#modul-aplikasi-)
+1. [Persyaratan Minimum :](https://www.google.com/search?q=%23persyaratan-minimum-)
+
+2. [Proses Cloning Proyek :](https://www.google.com/search?q=%23proses-cloning-proyek-)
+
+3. [Struktur Proyek :](https://www.google.com/search?q=%23struktur-proyek-)
+
+4. [Setup Database :](https://www.google.com/search?q=%23setup-database-)
+
+5. Cara Menjalankan Aplikasi :
+
+     \- Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal) :
+
+     \- Menggunakan Docker Compose :
+
+6. [Kredensial Login Default :](https://www.google.com/search?q=%23kredensial-login-default-)
+
+7. [Arsitektur Aplikasi :](https://www.google.com/search?q=%23arsitektur-aplikasi-)
+
+8. [Modul Aplikasi :](https://www.google.com/search?q=%23modul-aplikasi-)
+
+------
+
+
 
 ## 1. Persyaratan Minimum
 
@@ -21,9 +37,42 @@ Pastikan sistem kita memenuhi persyaratan berikut:
 - **PHP:** Versi `8.2` atau lebih tinggi.
 - **MySQL:** Versi `8.0` atau lebih tinggi.
 - **Web Server:** Apache (jika tidak menggunakan PHP Built-in Server atau Docker)
+- **Git:** Untuk melakukan cloning repository.
 - **Docker & Docker Compose:** (Jika ingin menjalankan database dan/atau aplikasi menggunakan Docker)
 
-## 2. Struktur Proyek
+------
+
+
+
+## 2. Proses Cloning Proyek
+
+Untuk mendapatkan salinan proyek ini di sistem lokal kamu, ikuti langkah-langkah berikut:
+
+1. **Buka Terminal atau Command Prompt:** Arahkan ke direktori tempat kamu ingin menyimpan proyek.
+
+2. **Lakukan Cloning Repository:** Gunakan perintah `git clone` berikut:
+
+   Bash
+
+   ```
+   git clone https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana.git
+   ```
+
+3. **Masuk ke Direktori Proyek:** Setelah proses cloning selesai, navigasikan ke direktori proyek:
+
+   Bash
+
+   ```
+   cd aplikasi-perpustakaan-sederhana
+   ```
+
+Sekarang kamu memiliki salinan lokal dari proyek ini dan siap untuk melanjutkan ke proses setup.
+
+------
+
+
+
+## 3. Struktur Proyek
 
 Berikut adalah struktur direktori utama proyek ini:
 
@@ -52,13 +101,21 @@ Berikut adalah struktur direktori utama proyek ini:
     └── peminjaman/       # Tampilan untuk manajemen peminjaman
 ```
 
-## 3. Setup Database
+------
 
-Aplikasi ini menggunakan database MySQL. kita dapat menyiapkannya secara manual atau menggunakan Docker Compose.
 
-### 3.1. Konfigurasi Database (app/Config/database.php)
+
+## 4. Setup Database
+
+Aplikasi ini menggunakan database MySQL. Kita dapat menyiapkannya secara manual atau menggunakan Docker Compose.
+
+
+
+### 4.1. Konfigurasi Database (app/Config/database.php)
 
 Pastikan file `app/Config/database.php` kita dikonfigurasi dengan benar sesuai lingkungan kita.
+
+PHP
 
 ```
 <?php
@@ -73,46 +130,58 @@ define('DB_PASS', 'your_db_password'); // Ganti dengan password database kita
 define('DB_NAME', 'perpustakaan_db'); // Nama database
 ```
 
-### 3.2. Impor Skema dan Data Awal
 
-kita dapat mengimpor skema database dan data awal menggunakan phpMyAdmin (jika menggunakan Docker Compose) atau klien MySQL/MariaDB lainnya.
+
+### 4.2. Impor Skema dan Data Awal
+
+Kita dapat mengimpor skema database dan data awal menggunakan phpMyAdmin (jika menggunakan Docker Compose) atau klien MySQL/MariaDB lainnya.
 
 1. **Akses phpMyAdmin:** Jika menggunakan Docker Compose, akses `http://localhost:8080`.
 2. **Buat Database:** Buat database baru dengan nama `perpustakaan_db` (atau nama lain yang kita tentukan di `database.php` dan `docker-compose.yaml`). Pastikan menggunakan `utf8mb4_unicode_ci` untuk collation.
 3. **Impor SQL:** Impor file `dump_sql/data.sql` ke database yang baru kita buat. File ini berisi semua definisi tabel dan data awal (termasuk user admin).
 
-## 4. Cara Menjalankan Aplikasi
+------
+
+
+
+## 5. Cara Menjalankan Aplikasi
 
 Ada dua cara utama untuk menjalankan aplikasi ini secara lokal:
 
-### 4.1. Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal)
+### 5.1. Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal)
 
 Ini adalah cara paling cepat dan mudah untuk menjalankan aplikasi PHP tanpa perlu konfigurasi web server eksternal seperti Apache atau Nginx.
 
 1. **Buka Terminal:** Navigasikan ke direktori root proyek kita (misal: `/var/www/html/perpustakaan`).
 
+   Bash
+
    ```
-   cd /path/to/your/project/perpustakaan
+   cd /path/to/your/project/aplikasi-perpustakaan-sederhana
    ```
 
 2. **Jalankan Server:**
+
+   Bash
 
    ```
    php -S localhost:8000 -t public
    ```
 
-   - `localhost:8000`: Aplikasi akan berjalan di `http://localhost:8000`. kita bisa mengganti `8000` dengan port lain jika diperlukan.
+   - `localhost:8000`: Aplikasi akan berjalan di `http://localhost:8000`. Kita bisa mengganti `8000` dengan port lain jika diperlukan.
    - `-t public`: Menentukan folder `public` sebagai document root server. Ini penting agar routing aplikasi kita berfungsi dengan benar.
 
 3. **Akses Aplikasi:** Buka browser kita dan kunjungi `http://localhost:8000/`.
 
-### 4.2. Menggunakan Docker Compose
+### 5.2. Menggunakan Docker Compose
 
 Menggunakan Docker Compose akan menjalankan database (MySQL) dan phpMyAdmin dalam kontainer terisolasi, yang sangat direkomendasikan untuk konsistensi lingkungan pengembangan.
 
 1. **Pastikan Docker Terinstal:** Pastikan Docker dan Docker Compose sudah terinstal di sistem kita.
 
 2. **Jalankan Kontainer:** Buka terminal di direktori root proyek kita (tempat file `docker-compose.yaml` berada), lalu jalankan:
+
+   Bash
 
    ```
    docker-compose up -d
@@ -122,11 +191,13 @@ Menggunakan Docker Compose akan menjalankan database (MySQL) dan phpMyAdmin dala
    - Port MySQL `3306` dari kontainer akan di-forward ke port `33306` di host kita.
    - Port phpMyAdmin `80` dari kontainer akan di-forward ke port `8080` di host kita.
 
-3. **Akses phpMyAdmin:** Buka browser dan kunjungi `http://localhost:8080`. kita bisa login dengan user `root` dan `your_root_password` yang kita tentukan di `docker-compose.yaml`.
+3. **Akses phpMyAdmin:** Buka browser dan kunjungi `http://localhost:8080`. Kita bisa login dengan user `root` dan `your_root_password` yang kita tentukan di `docker-compose.yaml`.
 
 4. **Impor Database:** Gunakan phpMyAdmin untuk mengimpor `dump_sql/data.sql` ke database `perpustakaan_db`.
 
 5. **Jalankan Aplikasi PHP:** Setelah database siap, jalankan aplikasi PHP kita menggunakan PHP Built-in Server seperti yang dijelaskan di bagian sebelumnya:
+
+   Bash
 
    ```
    php -S localhost:8000 -t public
@@ -136,24 +207,34 @@ Menggunakan Docker Compose akan menjalankan database (MySQL) dan phpMyAdmin dala
 
 **Untuk Menghentikan Kontainer Docker:**
 
+Bash
+
 ```
 docker-compose down
 ```
 
 Untuk menghentikan dan menghapus semua data database (jangan lakukan ini jika kita ingin menyimpan data):
 
+Bash
+
 ```
 docker-compose down -v
 ```
 
-## 5. Kredensial Login Default
+------
+
+## 6. Kredensial Login Default
 
 Setelah mengimpor `dump_sql/data.sql`, kita akan memiliki user `admin` yang dapat digunakan untuk login:
 
 - **Username:** `admin`
 - **Password:** `password123`
 
-## 6. Arsitektur Aplikasi
+------
+
+
+
+## 7. Arsitektur Aplikasi
 
 Aplikasi ini dibangun dengan pendekatan **MVC (Model-View-Controller) sederhana** dan beberapa komponen inti (`Core`) untuk menangani fungsionalitas dasar.
 
@@ -173,7 +254,11 @@ Aplikasi ini dibangun dengan pendekatan **MVC (Model-View-Controller) sederhana*
   - `Utils.php`: Berisi fungsi-fungsi utilitas umum (misal: `generateUuid`).
 - **Public (`public/`):** Direktori yang dapat diakses langsung oleh web server. Berisi `index.php` (front controller) dan aset statis (CSS, JS).
 
-## 7. Modul Aplikasi
+------
+
+
+
+## 8. Modul Aplikasi
 
 Aplikasi ini mencakup modul-modul utama berikut:
 
