@@ -78,3 +78,7 @@
 $content = ob_get_clean();
 echo $content;
 ?>
+
+<?php
+    include __DIR__ . '/../partials/footer.php'; 
+?>

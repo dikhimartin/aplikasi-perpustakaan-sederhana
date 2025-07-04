@@ -39,3 +39,7 @@ include __DIR__ . '/../layouts/app.php';
 $content = ob_get_clean();
 echo $content;
 ?>
+
+<?php
+    include __DIR__ . '/../partials/footer.php'; 
+?>
