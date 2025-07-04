@@ -5,8 +5,8 @@ Aplikasi manajemen perpustakaan sederhana berbasis PHP Native dengan arsitektur 
 
 ## Daftar Isi
 
-- [1. Persyaratan Minimum](#persyaratan-minimum-)
-- [2. Proses Cloning Proyek](#proses-cloning-proyek-)
+- [1. Persyaratan Minimum](#1-persyaratan-minimum-)
+- [2. Proses Cloning Proyek](#2-proses-cloning-proyek-)
 - [3. Struktur Proyek](#struktur-proyek-)
 - [4. Setup Database](#setup-database-)
 - [5. Cara Menjalankan Aplikasi](#cara-menjalankan-aplikasi)
