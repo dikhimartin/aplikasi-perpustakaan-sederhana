@@ -41,7 +41,7 @@ Untuk mendapatkan salinan proyek ini di sistem lokal kamu, ikuti langkah-langkah
 2. **Lakukan Cloning Repository:** Gunakan perintah `git clone` berikut:
 
    ```bash
-   git clone [https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana.git](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana.git)
+   git clone https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana.git
    ```
 
 3. **Masuk ke Direktori Proyek:** Setelah proses cloning selesai, navigasikan ke direktori proyek:
@@ -63,9 +63,9 @@ Berikut adalah struktur direktori utama proyek ini:
 ├── app/            \# Logika inti aplikasi (Model, Controller, Core)
 │   ├── Config/     \# Konfigurasi aplikasi (misal: database.php)
 │   ├── Controllers/\# Menangani logika permintaan dan interaksi model/view
-│   ├── Core/       \# Kelas inti (Database, Router, Auth, Utilities)
+│   ├── Core/       \# Class inti (Database, Router, Auth, Utilities)
 │   └── Models/     \# Berinteraksi langsung dengan database
-├── docker-compose.yaml \# Konfigurasi Docker Compose untuk layanan database
+├── docker-compose.yaml \# Konfigurasi Docker Compose untuk services database
 ├── dump\_sql/       \# Direktori untuk script SQL database
 │   └── data.sql    \# Script SQL untuk membuat tabel dan data awal
 ├── public/         \# Direktori root web yang dapat diakses publik
@@ -73,7 +73,6 @@ Berikut adalah struktur direktori utama proyek ini:
 │   ├── index.php   \# Front controller utama aplikasi
 │   └── js/         \# File JavaScript
 ├── README.md       \# File dokumentasi ini
-├── vendor/         \# Dependensi Composer (jika ada)
 └── views/          \# File tampilan (HTML/PHP)
 ├── auth/       \# Tampilan terkait otentikasi (login)
 ├── buku/       \# Tampilan untuk manajemen buku
@@ -101,7 +100,7 @@ Pastikan file `app/Config/database.php` kita dikonfigurasi dengan benar sesuai l
 // Jika menggunakan PHP Built-in Server dan MySQL dari Docker Compose:
 define('DB_HOST', 'localhost:33306'); // Sesuaikan dengan port yang kita forward di docker-compose.yaml
 // Jika menggunakan Docker Compose untuk PHP dan MySQL (dalam jaringan Docker):
-// define('DB_HOST', 'db'); // 'db' adalah nama layanan MySQL di docker-compose.yaml
+// define('DB_HOST', 'db'); // 'db' adalah nama services MySQL di docker-compose.yaml
 define('DB_USER', 'your_db_user');     // Ganti dengan username database kita
 define('DB_PASS', 'your_db_password'); // Ganti dengan password database kita
 define('DB_NAME', 'perpustakaan_db'); // Nama database
@@ -206,7 +205,7 @@ Aplikasi ini dibangun dengan pendekatan **MVC (Model-View-Controller) sederhana*
     - `BukuController.php`: Mengelola operasi terkait buku (tambah, edit, hapus, daftar).
     - `MahasiswaController.php`: Mengelola operasi terkait mahasiswa.
     - `PeminjamanController.php`: Mengelola operasi peminjaman dan pengembalian buku.
-  - **Core (`app/Core/`):** Berisi kelas-kelas inti yang mendukung fungsionalitas aplikasi secara keseluruhan.
+  - **Core (`app/Core/`):** Berisi Class-Class inti yang mendukung fungsionalitas aplikasi secara keseluruhan.
     - `Database.php`: Menangani koneksi ke database.
     - `Router.php`: Menerima permintaan HTTP dan mengarahkannya ke Controller/metode yang sesuai.
     - `Auth.php`: Menangani logika otentikasi dan otorisasi (Role-Based Access Control - RBAC).
@@ -222,7 +221,7 @@ Aplikasi ini mencakup modul-modul utama berikut:
   - **User & Otentikasi (Login/Logout):**
     - Pengelolaan user (`User` Model).
     - Fungsionalitas login dan logout (`AuthController`).
-    - **Role-Based Access Control (RBAC):** Membedakan akses berdasarkan peran pengguna (`admin` atau `mahasiswa`) melalui kelas `Auth`. Hanya admin yang dapat melakukan operasi CRUD pada buku dan mahasiswa.
+    - **Role-Based Access Control (RBAC):** Membedakan akses berdasarkan peran pengguna (`admin` atau `mahasiswa`) melalui Class `Auth`. Hanya admin yang dapat melakukan operasi CRUD pada buku dan mahasiswa.
   - **Master Data Buku:**
     - Melihat daftar buku (`BukuController`, `views/buku/index.php`).
     - Menambah buku baru (`BukuController`, `views/buku/create.php`).
