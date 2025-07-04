@@ -28,8 +28,9 @@ class User {
     }
 
     public function create() {
-        $this->id_user = Utils::generateUuid();
-        $this->password = password_hash($this->password, PASSWORD_BCRYPT); 
+        // ID user sudah di-generate di Mahasiswa model atau di controller jika user dibuat terpisah
+        // Password sudah di-hash di controller atau di Mahasiswa model sebelum dipanggil ke sini
+        $hashed_password = password_hash($this->password, PASSWORD_BCRYPT); 
 
         $query = "INSERT INTO " . $this->table_name . "
                   SET id_user=:id_user, username=:username, password=:password,
@@ -40,19 +41,21 @@ class User {
         // sanitize
         $this->username = htmlspecialchars(strip_tags($this->username));
         $this->role = htmlspecialchars(strip_tags($this->role));
-        $this->nim_mahasiswa = htmlspecialchars(strip_tags($this->nim_mahasiswa));
+        // nim_mahasiswa bisa NULL, jadi tidak perlu strip_tags jika NULL
+        $nim_mahasiswa_sanitized = $this->nim_mahasiswa ? htmlspecialchars(strip_tags($this->nim_mahasiswa)) : null;
 
         // bind values
         $stmt->bindParam(":id_user", $this->id_user);
         $stmt->bindParam(":username", $this->username);
-        $stmt->bindParam(":password", $this->password);
+        $stmt->bindParam(":password", $hashed_password); // Bind hashed password
         $stmt->bindParam(":role", $this->role);
-        $stmt->bindParam(":nim_mahasiswa", $this->nim_mahasiswa);
+        $stmt->bindParam(":nim_mahasiswa", $nim_mahasiswa_sanitized);
 
         if ($stmt->execute()) {
             return true;
         }
 
+        error_log("Error creating user: " . implode(" - ", $stmt->errorInfo()));
         return false;
     }
 }

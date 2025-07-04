@@ -34,6 +34,16 @@
                 <option value="non_aktif">Non-Aktif</option>
             </select>
         </div>
+        <hr class="my-4">
+        <h4>Informasi Akun Login</h4>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username (untuk Login)</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password (untuk Login)</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
         <a href="/mahasiswa" class="btn btn-secondary">Batal</a>
     </form>

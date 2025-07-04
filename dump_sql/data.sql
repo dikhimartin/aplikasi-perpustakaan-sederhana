@@ -101,24 +101,25 @@ INSERT INTO User (id_user, username, password, role) VALUES (
     'admin',
     '$2y$12$Lxijj51zoiYI6apXu3O84OBPdX3Rq5saRFMFNXk20FxMGza4Qm2KO', -- Ini adalah hash contoh untuk 'password123'
     'admin'
-) ON DUPLICATE KEY UPDATE username=username; 
+) ON DUPLICATE KEY UPDATE username=username;
 
 -- Contoh menambahkan data mahasiswa
+-- Perhatikan bahwa NIM juga menggunakan UUID
+-- Data ini akan dihubungkan dengan user di bawah
 INSERT INTO MasterMahasiswa (nim, nama_mahasiswa, jurusan, email, no_telepon, status) VALUES
-(UUID(), 'Budi Santoso', 'Teknik Informatika', 'budi.santoso@example.com', '081234567890', 'aktif'),
-(UUID(), 'Siti Aminah', 'Sistem Informasi', 'siti.aminah@example.com', '085678901234', 'aktif'),
+('b9a1c2d3-e4f5-6789-0123-456789abcdef', 'Budi Santoso', 'Teknik Informatika', 'budi.santoso@example.com', '081234567890', 'aktif'),
+('c0a1b2c3-d4e5-6789-0123-456789abcdef', 'Siti Aminah', 'Sistem Informasi', 'siti.aminah@example.com', '085678901234', 'aktif'),
 (UUID(), 'Joko Susilo', 'Manajemen', 'joko.susilo@example.com', '087890123456', 'non_aktif')
 ON DUPLICATE KEY UPDATE nama_mahasiswa=nama_mahasiswa;
 
 -- Contoh menambahkan user untuk mahasiswa (misal: 'mahasiswa1' untuk Budi Santoso)
--- Kita perlu mengambil NIM dari mahasiswa yang sudah ada
--- Jalankan ini setelah data MasterMahasiswa di atas dimasukkan
+-- Kita menggunakan NIM yang sudah ditentukan di atas untuk Budi Santoso dan Siti Aminah
 INSERT INTO User (id_user, username, password, role, nim_mahasiswa) VALUES (
     UUID(),
     'mahasiswa1',
     '$2y$12$Lxijj51zoiYI6apXu3O84OBPdX3Rq5saRFMFNXk20FxMGza4Qm2KO', -- Ini adalah hash contoh untuk 'password123'
     'mahasiswa',
-    (SELECT nim FROM MasterMahasiswa WHERE nama_mahasiswa = 'Budi Santoso' LIMIT 1)
+    'b9a1c2d3-e4f5-6789-0123-456789abcdef' -- NIM Budi Santoso
 ) ON DUPLICATE KEY UPDATE username=username;
 
 INSERT INTO User (id_user, username, password, role, nim_mahasiswa) VALUES (
@@ -126,7 +127,7 @@ INSERT INTO User (id_user, username, password, role, nim_mahasiswa) VALUES (
     'mahasiswa2',
     '$2y$12$Lxijj51zoiYI6apXu3O84OBPdX3Rq5saRFMFNXk20FxMGza4Qm2KO', -- Ini adalah hash contoh untuk 'password123'
     'mahasiswa',
-    (SELECT nim FROM MasterMahasiswa WHERE nama_mahasiswa = 'Siti Aminah' LIMIT 1)
+    'c0a1b2c3-d4e5-6789-0123-456789abcdef' -- NIM Siti Aminah
 ) ON DUPLICATE KEY UPDATE username=username;
 
 -- Contoh menambahkan data buku

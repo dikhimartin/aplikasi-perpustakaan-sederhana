@@ -14,6 +14,9 @@ class AuthController {
     }
 
     public function showLogin() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if (Auth::check()) {
             header('Location: /buku');
             exit();
@@ -22,6 +25,9 @@ class AuthController {
     }
 
     public function login() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         error_log("Attempting login..."); 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username = trim($_POST['username'] ?? '');
@@ -29,7 +35,6 @@ class AuthController {
 
             error_log("Username submitted: " . $username);
 
-            // --- Validasi Input Sederhana ---
             if (empty($username)) {
                 $_SESSION['error'] = 'Username tidak boleh kosong.';
                 error_log("Login failed: Username empty.");
@@ -58,7 +63,6 @@ class AuthController {
                 exit();
             }
 
-
             $user = $this->userModel->findByUsername($username);
 
             if ($user) {
@@ -67,58 +71,34 @@ class AuthController {
                     $_SESSION['user_id'] = $user['id_user'];
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['user_role'] = $user['role'];
-                    $_SESSION['nim_mahasiswa'] = $user['nim_mahasiswa'];
+                    
+                    if ($user['role'] === 'mahasiswa' && !empty($user['nim_mahasiswa'])) {
+                        $_SESSION['nim_mahasiswa'] = $user['nim_mahasiswa'];
+                    } else {
+                        unset($_SESSION['nim_mahasiswa']);
+                    }
 
                     $_SESSION['message'] = 'Selamat datang, ' . htmlspecialchars($user['username']) . '!';
-                    error_log("Login successful for user: " . $user['username']);
-                    header('Location: /buku');
+                    error_log("Login successful for user: " . $user['username'] . " with role: " . $user['role']);
+                    header('Location: /buku'); 
                     exit();
                 } else {
                     $_SESSION['error'] = 'Username atau password salah.';
-                    error_log("Login failed: Password mismatch for user " . $user['username']);
-                    header('Location: /login');
-                    exit();
+                    error_log("Login failed: Password mismatch for user " . $username);
                 }
             } else {
                 $_SESSION['error'] = 'Username atau password salah.';
-                error_log("Login failed: User '" . $username . "' not found in database.");
-                header('Location: /login');
-                exit();
+                error_log("Login failed: User not found for username " . $username);
             }
+            header('Location: /login');
+            exit();
         }
-        error_log("Login failed: Not a POST request.");
-        header('Location: /login');
-        exit();
     }
 
     public function logout() {
-        session_unset();
-        session_destroy();
-        $_SESSION['message'] = 'Anda telah logout.';
+        Auth::logout();
+        $_SESSION['message'] = 'Anda telah berhasil logout.';
         header('Location: /login');
         exit();
-    }
-
-    public function createUser() {
-        if (!Auth::isAdmin()) {
-            $_SESSION['error'] = 'Anda tidak memiliki izin untuk melakukan aksi ini.';
-            header('Location: /');
-            exit();
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->userModel->username = $_POST['username'];
-            $this->userModel->password = $_POST['password'];
-            $this->userModel->role = $_POST['role'];
-            $this->userModel->nim_mahasiswa = $_POST['nim_mahasiswa'] ?? null;
-
-            if ($this->userModel->create()) {
-                $_SESSION['message'] = 'User ' . htmlspecialchars($this->userModel->username) . ' berhasil dibuat!';
-                header('Location: /');
-                exit();
-            } else {
-                $_SESSION['error'] = 'Gagal membuat user.';
-            }
-        }
     }
 }

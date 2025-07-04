@@ -55,7 +55,7 @@
                         <?php if (Auth::isAdmin()): ?>
                             <td>
                                 <a href="/mahasiswa/edit?nim=<?= $mahasiswa['nim']; ?>" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="/mahasiswa/delete" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus mahasiswa ini?');">
+                                <form action="/mahasiswa/delete" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus mahasiswa ini? Ini juga akan menghapus akun user terkait.');">
                                     <input type="hidden" name="nim" value="<?= $mahasiswa['nim']; ?>">
                                     <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                 </form>

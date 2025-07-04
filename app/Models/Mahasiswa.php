@@ -2,10 +2,12 @@
 
 require_once __DIR__ . '/../Core/Database.php';
 require_once __DIR__ . '/../Core/Utils.php';
+require_once __DIR__ . '/User.php'; // Tambahkan ini untuk mengimpor model User
 
 class Mahasiswa {
     private $conn;
     private $table_name = "MasterMahasiswa";
+    private $userModel;
 
     public $nim;
     public $nama_mahasiswa;
@@ -13,41 +15,69 @@ class Mahasiswa {
     public $email;
     public $no_telepon;
     public $status;
+    public $username; // Properti baru untuk username user
+    public $password; // Properti baru untuk password user
 
     public function __construct() {
         $database = Database::getInstance();
         $this->conn = $database->getConnection();
+        $this->userModel = new User(); // Inisialisasi model User
     }
 
+    // Metode create sekarang menerima username dan password
     public function create() {
-        $this->nim = Utils::generateUuid(); 
+        // Mulai transaksi
+        $this->conn->beginTransaction();
 
-        $query = "INSERT INTO " . $this->table_name . "
-                  SET nim=:nim, nama_mahasiswa=:nama_mahasiswa, jurusan=:jurusan,
-                      email=:email, no_telepon=:no_telepon, status=:status";
+        try {
+            $this->nim = Utils::generateUuid(); 
 
-        $stmt = $this->conn->prepare($query);
+            $query = "INSERT INTO " . $this->table_name . "
+                      SET nim=:nim, nama_mahasiswa=:nama_mahasiswa, jurusan=:jurusan,
+                          email=:email, no_telepon=:no_telepon, status=:status";
 
-        // sanitize
-        $this->nama_mahasiswa = htmlspecialchars(strip_tags($this->nama_mahasiswa));
-        $this->jurusan = htmlspecialchars(strip_tags($this->jurusan));
-        $this->email = htmlspecialchars(strip_tags($this->email));
-        $this->no_telepon = htmlspecialchars(strip_tags($this->no_telepon));
-        $this->status = htmlspecialchars(strip_tags($this->status));
+            $stmt = $this->conn->prepare($query);
 
-        // bind values
-        $stmt->bindParam(":nim", $this->nim);
-        $stmt->bindParam(":nama_mahasiswa", $this->nama_mahasiswa);
-        $stmt->bindParam(":jurusan", $this->jurusan);
-        $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":no_telepon", $this->no_telepon);
-        $stmt->bindParam(":status", $this->status);
+            // sanitize
+            $this->nama_mahasiswa = htmlspecialchars(strip_tags($this->nama_mahasiswa));
+            $this->jurusan = htmlspecialchars(strip_tags($this->jurusan));
+            $this->email = htmlspecialchars(strip_tags($this->email));
+            $this->no_telepon = htmlspecialchars(strip_tags($this->no_telepon));
+            $this->status = htmlspecialchars(strip_tags($this->status));
 
-        if ($stmt->execute()) {
+            // bind values
+            $stmt->bindParam(":nim", $this->nim);
+            $stmt->bindParam(":nama_mahasiswa", $this->nama_mahasiswa);
+            $stmt->bindParam(":jurusan", $this->jurusan);
+            $stmt->bindParam(":email", $this->email);
+            $stmt->bindParam(":no_telepon", $this->no_telepon);
+            $stmt->bindParam(":status", $this->status);
+
+            if (!$stmt->execute()) {
+                throw new Exception("Gagal membuat data mahasiswa.");
+            }
+
+            // Jika berhasil membuat mahasiswa, buat akun user terkait
+            $this->userModel->id_user = Utils::generateUuid(); // Generate UUID untuk user
+            $this->userModel->username = $this->username;
+            $this->userModel->password = $this->password;
+            $this->userModel->role = 'mahasiswa';
+            $this->userModel->nim_mahasiswa = $this->nim; // Hubungkan dengan NIM mahasiswa yang baru dibuat
+
+            if (!$this->userModel->create()) {
+                throw new Exception("Gagal membuat akun user untuk mahasiswa.");
+            }
+
+            // Commit transaksi jika semua berhasil
+            $this->conn->commit();
             return true;
-        }
 
-        return false;
+        } catch (Exception $e) {
+            // Rollback transaksi jika ada kesalahan
+            $this->conn->rollBack();
+            error_log("Error creating mahasiswa and user: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function readAll($limit = 10, $offset = 0) {
@@ -116,15 +146,38 @@ class Mahasiswa {
     }
 
     public function delete() {
-        $query = "DELETE FROM " . $this->table_name . " WHERE nim = :nim";
-        $stmt = $this->conn->prepare($query);
+        // Mulai transaksi
+        $this->conn->beginTransaction();
 
-        $this->nim = htmlspecialchars(strip_tags($this->nim));
-        $stmt->bindParam(':nim', $this->nim);
+        try {
+            // Hapus user terkait terlebih dahulu (karena ada FOREIGN KEY ON DELETE SET NULL di tabel User)
+            // Atau, jika ingin menghapus user juga, bisa langsung hapus mahasiswa dan biarkan ON DELETE CASCADE/SET NULL bekerja
+            // Di sini, kita akan menghapus user secara eksplisit untuk memastikan
+            $userQuery = "DELETE FROM User WHERE nim_mahasiswa = :nim";
+            $userStmt = $this->conn->prepare($userQuery);
+            $userStmt->bindParam(':nim', $this->nim);
+            if (!$userStmt->execute()) {
+                throw new Exception("Gagal menghapus user terkait.");
+            }
 
-        if ($stmt->execute()) {
+            // Kemudian hapus mahasiswa
+            $mahasiswaQuery = "DELETE FROM " . $this->table_name . " WHERE nim = :nim";
+            $mahasiswaStmt = $this->conn->prepare($mahasiswaQuery);
+            $mahasiswaStmt->bindParam(':nim', $this->nim);
+
+            if (!$mahasiswaStmt->execute()) {
+                throw new Exception("Gagal menghapus mahasiswa.");
+            }
+
+            // Commit transaksi jika semua berhasil
+            $this->conn->commit();
             return true;
+
+        } catch (Exception $e) {
+            // Rollback transaksi jika ada kesalahan
+            $this->conn->rollBack();
+            error_log("Error deleting mahasiswa and user: " . $e->getMessage());
+            return false;
         }
-        return false;
     }
 }
