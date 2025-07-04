@@ -5,10 +5,10 @@ Aplikasi manajemen perpustakaan sederhana berbasis PHP Native dengan arsitektur 
 
 ## Daftar Isi
 
-- [1. Persyaratan Minimum](#1-persyaratan-minimum-)
-- [2. Proses Cloning Proyek](#2-proses-cloning-proyek-)
-- [3. Struktur Proyek](#struktur-proyek-)
-- [4. Setup Database](#setup-database-)
+- [Persyaratan Minimum](#persyaratan-minimum-)
+- [Proses Cloning Proyek](#proses-cloning-proyek-)
+- [3. Struktur Proyek](#3-struktur-proyek-)
+- [4. Setup Database](#4-setup-database-)
 - [5. Cara Menjalankan Aplikasi](#cara-menjalankan-aplikasi)
 
    \- Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal) :
@@ -23,7 +23,7 @@ Aplikasi manajemen perpustakaan sederhana berbasis PHP Native dengan arsitektur 
 
 
 
-## 1. Persyaratan Minimum
+## Persyaratan Minimum
 
 Pastikan sistem kita memenuhi persyaratan berikut:
 
@@ -34,7 +34,7 @@ Pastikan sistem kita memenuhi persyaratan berikut:
 - **Docker & Docker Compose:** (Jika ingin menjalankan database dan/atau aplikasi menggunakan Docker)
 
 
-## 2. Proses Cloning Proyek
+## Proses Cloning Proyek
 
 Untuk mendapatkan salinan proyek ini di sistem lokal kamu, ikuti langkah-langkah berikut:
 
