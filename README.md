@@ -27,7 +27,6 @@ Pastikan sistem kita memenuhi persyaratan berikut:
 
 - **PHP:** Versi `8.2` atau lebih tinggi.
 - **MySQL:** Versi `8.0` atau lebih tinggi.
-- **Web Server:** Apache (jika tidak menggunakan PHP Built-in Server atau Docker)
 - **Git:** Untuk melakukan cloning repository.
 - **Docker & Docker Compose:** (Jika ingin menjalankan database dan/atau aplikasi menggunakan Docker)
 
