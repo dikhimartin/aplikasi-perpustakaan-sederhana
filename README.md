@@ -4,15 +4,15 @@ Aplikasi manajemen perpustakaan sederhana berbasis PHP Native dengan arsitektur 
 
 ## Daftar Isi
 
-1. [Persyaratan Minimum](#persyaratan-minimum-)
-2. [Struktur Proyek](#struktur-proyek-)
-3. [Setup Database](#setup-database-)
-4. [Cara Menjalankan Aplikasi](#cara-menjalankan-aplikasi-)
-   - [Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal)](#menggunakan-php-built-in-server-disarankan-untuk-pengembangan-lokal-)
-   - [Menggunakan Docker Compose](#menggunakan-docker-compose-)
-5. [Kredensial Login Default](#kredensial-login-default-)
-6. [Arsitektur Aplikasi](#arsitektur-aplikasi-)
-7. [Modul Aplikasi](#modul-aplikasi-)
+1. [Persyaratan Minimum :](#persyaratan-minimum-)
+2. [Struktur Proyek :](#struktur-proyek-)
+3. [Setup Database :](#setup-database-)
+4. [Cara Menjalankan Aplikasi :](#cara-menjalankan-aplikasi-)
+   - [Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal) :](#menggunakan-php-built-in-server-disarankan-untuk-pengembangan-lokal-)
+   - [Menggunakan Docker Compose :](#menggunakan-docker-compose-)
+5. [Kredensial Login Default :](#kredensial-login-default-)
+6. [Arsitektur Aplikasi :](#arsitektur-aplikasi-)
+7. [Modul Aplikasi :](#modul-aplikasi-)
 
 ## 1. Persyaratan Minimum
 
