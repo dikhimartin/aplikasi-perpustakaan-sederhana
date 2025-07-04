@@ -18,7 +18,7 @@ Aplikasi manajemen perpustakaan sederhana berbasis PHP Native dengan arsitektur 
 
 Pastikan sistem kita memenuhi persyaratan berikut:
 
-- **PHP:** Versi `8.2` atau lebih tinggi. (Berdasarkan output `php -v` kita: `PHP 8.4.10`)
+- **PHP:** Versi `8.2` atau lebih tinggi.
 - **MySQL:** Versi `8.0` atau lebih tinggi.
 - **Web Server:** Apache (jika tidak menggunakan PHP Built-in Server atau Docker)
 - **Docker & Docker Compose:** (Jika ingin menjalankan database dan/atau aplikasi menggunakan Docker)
