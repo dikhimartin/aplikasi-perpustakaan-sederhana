@@ -187,8 +187,11 @@ docker-compose down -v
 
 Setelah mengimpor `dump_sql/data.sql`, kita akan memiliki user `admin` yang dapat digunakan untuk login:
 
-  - **Username:** `admin`
-  - **Password:** `password123`
+| Role      | username   | password    |
+| --------- | ---------- | ----------- |
+| Admin     | admin      | password123 |
+| Mahasiswa | mahasiswa1 | password123 |
+| Mahasiswa | mahasiswa2 | password123 |
 
 -----
 
@@ -243,4 +246,3 @@ Aplikasi ini mencakup modul-modul utama berikut:
     - Fungsionalitas pengembalian buku (`PeminjamanController`).
     - Penambahan stok buku otomatis saat pengembalian.
     - Pencatatan riwayat peminjaman terpisah (`HistoryPeminjaman` Tabel).
-
