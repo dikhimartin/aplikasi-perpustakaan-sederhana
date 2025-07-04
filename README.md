@@ -2,19 +2,17 @@
 
 Aplikasi manajemen perpustakaan sederhana berbasis PHP Native dengan arsitektur MVC (Model-View-Controller) dan database MySQL. Aplikasi ini memungkinkan pengelolaan data buku, mahasiswa, serta transaksi peminjaman dan pengembalian buku, dilengkapi dengan fitur otentikasi pengguna dan Role-Based Access Control (RBAC).
 
-
-
 ## Daftar Isi
 
-1. [Persyaratan Minimum](https://www.google.com/search?q=%23persyaratan-minimum)
-2. [Struktur Proyek](https://www.google.com/search?q=%23struktur-proyek)
-3. [Setup Database](https://www.google.com/search?q=%23setup-database)
-4. [Cara Menjalankan Aplikasi](https://www.google.com/search?q=%23cara-menjalankan-aplikasi)
-   - [Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal)](https://www.google.com/search?q=%23menggunakan-php-built-in-server-disarankan-untuk-pengembangan-lokal)
-   - [Menggunakan Docker Compose](https://www.google.com/search?q=%23menggunakan-docker-compose)
-5. [Kredensial Login Default](https://www.google.com/search?q=%23kredensial-login-default)
-6. [Arsitektur Aplikasi](https://www.google.com/search?q=%23arsitektur-aplikasi)
-7. [Modul Aplikasi](https://www.google.com/search?q=%23modul-aplikasi)
+1. [Persyaratan Minimum](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#persyaratan-minimum)
+2. [Struktur Proyek](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#struktur-proyek)
+3. [Setup Database](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#setup-database)
+4. [Cara Menjalankan Aplikasi](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#cara-menjalankan-aplikasi)
+   - [Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal)](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#menggunakan-php-built-in-server-disarankan-untuk-pengembangan-lokal)
+   - [Menggunakan Docker Compose](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#menggunakan-docker-compose)
+5. [Kredensial Login Default](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#kredensial-login-default)
+6. [Arsitektur Aplikasi](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#arsitektur-aplikasi)
+7. [Modul Aplikasi](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#modul-aplikasi)
 
 ## 1. Persyaratan Minimum
 
