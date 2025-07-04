@@ -4,15 +4,15 @@ Aplikasi manajemen perpustakaan sederhana berbasis PHP Native dengan arsitektur 
 
 ## Daftar Isi
 
-1. [Persyaratan Minimum](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#persyaratan-minimum)
-2. [Struktur Proyek](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#struktur-proyek)
-3. [Setup Database](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#setup-database)
-4. [Cara Menjalankan Aplikasi](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#cara-menjalankan-aplikasi)
-   - [Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal)](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#menggunakan-php-built-in-server-disarankan-untuk-pengembangan-lokal)
-   - [Menggunakan Docker Compose](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#menggunakan-docker-compose)
-5. [Kredensial Login Default](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#kredensial-login-default)
-6. [Arsitektur Aplikasi](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#arsitektur-aplikasi)
-7. [Modul Aplikasi](https://github.com/dikhimartin/aplikasi-perpustakaan-sederhana#modul-aplikasi)
+1. [Persyaratan Minimum](#persyaratan-minimum-)
+2. [Struktur Proyek](#struktur-proyek-)
+3. [Setup Database](#setup-database-)
+4. [Cara Menjalankan Aplikasi](#cara-menjalankan-aplikasi-)
+   - [Menggunakan PHP Built-in Server (Disarankan untuk Pengembangan Lokal)](#menggunakan-php-built-in-server-disarankan-untuk-pengembangan-lokal-)
+   - [Menggunakan Docker Compose](#menggunakan-docker-compose-)
+5. [Kredensial Login Default](#kredensial-login-default-)
+6. [Arsitektur Aplikasi](#arsitektur-aplikasi-)
+7. [Modul Aplikasi](#modul-aplikasi-)
 
 ## 1. Persyaratan Minimum
 
